@@ -1,0 +1,11 @@
+@import 'title.css';
+
+body {
+    margin: 0;
+    background-size: cover;
+    background-color: #EFEDE8;
+}
+
+body, html {
+    height: 100%;
+}
