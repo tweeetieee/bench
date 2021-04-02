@@ -2,6 +2,8 @@
 @import 'transaction-table.css';
 @import 'transaction-table-header.css';
 @import 'transaction-table-item.css';
+@import 'transaction-loader.css';
+@import 'error-message.css';
 
 body {
     margin: 0;
@@ -12,4 +14,8 @@ body {
 
 body, html {
     height: 100%;
+}
+
+.muted-text {
+    color: grey;
 }

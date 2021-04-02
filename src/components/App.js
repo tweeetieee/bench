@@ -1,10 +1,35 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Title from './Title';
 import TransactionTable from './TransactionTable';
+import TransactionLoader from './TransactionLoader';
+import ErrorMessage from './ErrorMessage';
 import '../css/app.css';
+
 export const FormatterContext = React.createContext();
 
+const BASE_URL = "https://resttest.bench.co/transactions/";
+
 function App() {
+  const [transactions, setTransactions] = useState([]);
+  const [isLoaded, setIsLoaded] = useState(false);
+  const [hasError, setHasError] = useState(false);
+
+  useEffect(() => {
+    let pagesRequired = 1;
+    let currentPage = 1;
+    fetch(BASE_URL + currentPage + ".json")
+    .then(res => res.json())
+    .then((result) => {
+        console.log(result);
+        pagesRequired = result.totalCount;
+      },
+      (error) => {
+        setIsLoaded(true);
+        setHasError(true);
+      }
+    )
+  }, []);
+
   const formatterContextValue = {
     formatDate,
     formatAmount
@@ -41,28 +66,15 @@ function App() {
     });
     return formatter.format(amount);
   }
-
   return (
     <FormatterContext.Provider value={formatterContextValue} >
       <Title />
-      <TransactionTable transactions={testData} />
+      {isLoaded && !hasError
+        ? <TransactionTable transactions={transactions} />
+        : (hasError? <ErrorMessage /> : <TransactionLoader /> )
+      }
     </FormatterContext.Provider>
   );
 }
-
-const testData = [
-  {
-    "date": "2013-12-22",
-    "ledger": "Phone & Internet Expense",
-    "amount": "-110.71",
-    "company": "SHAW CABLESYSTEMS CALGARY AB"
-  },
-  {
-    "date": "2010-04-07",
-    "ledger": "Interest Income",
-    "amount": "5701.23",
-    "company": "Momo Sushi Vancouver"
-  }
-]
 
 export default App;

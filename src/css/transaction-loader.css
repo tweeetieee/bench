@@ -1,0 +1,9 @@
+.transaction-loader-wrapper {
+    margin: 20px;
+    text-align: center;
+}
+
+.transaction-loader {
+    width: 100%;
+    padding: 10px;
+}

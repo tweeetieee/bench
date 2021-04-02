@@ -12,9 +12,9 @@ export default function TransactionTableItem(props) {
 
     return (
         <tr className="transaction-table-item-row">
-            <td>{formatDate(date)}</td>
-            <td>{ledger}</td>
+            <td className="muted-text">{formatDate(date)}</td>
             <td>{company}</td>
+            <td className="muted-text">{ledger}</td>
             <td className="amount">{formatAmount(amount)}</td>
         </tr>
     )

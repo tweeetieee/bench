@@ -7,11 +7,13 @@ export default function TransactionTable( { transactions } ) {
         <div className="transaction-table-wrapper">
             <table className="transaction-table">
                 <TransactionTableHeader /> 
-                {transactions.map((transaction, index) => {
-                    return (
-                        <TransactionTableItem key={index} {...transaction} />
-                    )
-                })}
+                <tbody>
+                    {transactions.map((transaction, index) => {
+                        return (
+                            <TransactionTableItem key={index} {...transaction} />
+                        )
+                    })}
+                </tbody>
             </table>
         </div>
     
