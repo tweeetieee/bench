@@ -1,0 +1,11 @@
+.transaction-table-item-row td {
+    padding: 8px;
+}
+
+.transaction-table-item-row td:not(.amount) {
+    text-align: left;
+}
+
+.transaction-table-item-row td.amount {
+    text-align: right;
+}

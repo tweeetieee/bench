@@ -1,0 +1,15 @@
+.transaction-table-header-row th {
+    padding: 8px;
+}
+
+.transaction-table-header-row th {
+    color: #098B8C;
+}
+
+.transaction-table-header-row th:not(.sum) {
+    text-align: left;
+}
+
+.transaction-table-header-row th.sum{
+    text-align: right;
+}

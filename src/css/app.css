@@ -1,9 +1,13 @@
 @import 'title.css';
+@import 'transaction-table.css';
+@import 'transaction-table-header.css';
+@import 'transaction-table-item.css';
 
 body {
     margin: 0;
     background-size: cover;
     background-color: #EFEDE8;
+    box-sizing: border-box;
 }
 
 body, html {
