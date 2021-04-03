@@ -23,12 +23,10 @@ export default function TransactionTable(props) {
                     {transactions.length > 0
                         ? (transactions.map((transaction, index) => {
                             return (
-                                <TransactionTableItem key={index} {...transaction} />
+                                <TransactionTableItem key={index} {...transaction} isEmpty={false} />
                             )
                          }))
-                        : (<tr className="transaction-table-item-row">
-                            <td className="no-transactions" colSpan="4">There are currently no transactions</td>
-                          </tr>)
+                        : <TransactionTableItem key={0} isEmpty={true} />
                     }
                 </tbody>
             </table>

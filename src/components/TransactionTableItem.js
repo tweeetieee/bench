@@ -6,16 +6,22 @@ export default function TransactionTableItem(props) {
         Date,
         Ledger,
         Amount,
-        Company
+        Company,
+        isEmpty
     } = props;
     const { formatDate, formatAmount } = useContext(FormatterContext);
 
     return (
         <tr className="transaction-table-item-row">
-            <td className="muted-text">{formatDate(Date)}</td>
-            <td>{Company}</td>
-            <td className="muted-text">{Ledger}</td>
-            <td className="amount">{formatAmount(Amount)}</td>
+            { isEmpty
+                ? <td className="no-transactions" colSpan="4">There are currently no transactions</td>
+                :<>
+                    <td className="muted-text">{formatDate(Date)}</td>
+                    <td>{Company}</td>
+                    <td className="muted-text">{Ledger}</td>
+                    <td className="amount">{formatAmount(Amount)}</td>
+                </>
+            }
         </tr>
     )
 }
