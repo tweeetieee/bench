@@ -9,3 +9,9 @@
 .transaction-table-item-row td.amount {
     text-align: right;
 }
+
+.transaction-table-item-row:hover,
+.transaction-table-item-row:hover .muted-text, 
+.transaction-table-item-row.hover .muted-text { 
+    color: #098B8C;
+}

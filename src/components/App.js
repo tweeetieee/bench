@@ -10,6 +10,7 @@ export const FormatterContext = React.createContext();
 
 const BASE_URL = "https://resttest.bench.co/transactions/";
 const JSON_EXTENSION = ".json";
+const MIN_NUM_PAGES = 1;
 
 function App() {
   const [transactions, setTransactions] = useState([]);
@@ -17,7 +18,7 @@ function App() {
   const [hasError, setHasError] = useState(false);
 
   useEffect(() => {
-    let pagesRequired = 1;
+    let pagesRequired = MIN_NUM_PAGES;
     axios.get(BASE_URL + pagesRequired + JSON_EXTENSION)
     .then((response) => response.data)
     .then(data => {
@@ -26,21 +27,21 @@ function App() {
       pagesRequired = 4;
       retrieveTransactions(pagesRequired);
     })
-    .catch((error) => {
+    .catch(() => {
       setIsLoaded(true);
       setHasError(true);
     })
   }, []);
 
   function retrieveTransactions(pagesRequired) {
-    let promises = [];
-    for (let i = 1; i <= pagesRequired; i++) {
-      promises.push(axios.get(BASE_URL + i + JSON_EXTENSION));
+    let requests = [];
+    for (let i = MIN_NUM_PAGES; i <= pagesRequired; i++) {
+      requests.push(axios.get(BASE_URL + i + JSON_EXTENSION));
     }
-    Promise.all(promises)
+    axios.all(requests)
     .then((responses) => {
       let newTransactions = [];
-      responses.map((response)=> {
+      responses.map((response) => {
         if (response.data) {
           let currentTractions = response.data.transactions;
           newTransactions = newTransactions.concat(currentTractions);
@@ -48,7 +49,7 @@ function App() {
       });
       setTransactions(newTransactions);
       setIsLoaded(true);
-    }).catch(error => {
+    }).catch(() => {
       setIsLoaded(true);
       setHasError(true);
     });

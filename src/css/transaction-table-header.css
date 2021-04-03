@@ -4,6 +4,7 @@
 
 .transaction-table-header-row th {
     color: #098B8C;
+    font-size: 1.1em;
 }
 
 .transaction-table-header-row th:not(.sum) {
