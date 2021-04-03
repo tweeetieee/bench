@@ -1,0 +1,22 @@
+@import 'colors.scss';
+
+.transaction-table-item-row {
+    td {
+        padding: 8px;
+    }
+    td:not(.amount):not(.no-transactions) {
+        text-align: left;
+    }
+    td.amount {
+        text-align: right;
+    }
+    td.no-transactions {
+        text-align: center;
+    }
+}
+
+.transaction-table-item-row:hover,
+.transaction-table-item-row:hover .muted-text, 
+.transaction-table-item-row.hover .muted-text { 
+    color: $primary-color;
+}

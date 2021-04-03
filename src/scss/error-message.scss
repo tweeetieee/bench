@@ -1,5 +1,7 @@
+@import 'colors.scss';
+
 .error-message-container {
     text-align: center;
-    color: red;
+    color: $error-color;
     font-weight: 600;
 }

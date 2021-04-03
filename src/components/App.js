@@ -4,7 +4,7 @@ import TransactionTable from './TransactionTable';
 import TransactionLoader from './TransactionLoader';
 import ErrorMessage from './ErrorMessage';
 import axios from 'axios';
-import '../css/app.css';
+import '../scss/app.scss';
 
 export const FormatterContext = React.createContext();
 
@@ -43,8 +43,7 @@ function App() {
       let newTransactions = [];
       responses.forEach((response) => {
         if (response.data) {
-          let currentTractions = response.data.transactions;
-          newTransactions = newTransactions.concat(currentTractions);
+          newTransactions = newTransactions.concat(response.data.transactions);
         }
       });
       setTransactions(newTransactions);

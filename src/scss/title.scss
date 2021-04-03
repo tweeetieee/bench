@@ -1,3 +1,5 @@
+@import 'colors.scss';
+
 .title-container {
     box-sizing: border-box;
     width: 100%;
@@ -6,6 +8,6 @@
     align-items: baseline;
     padding: 1em;
     margin-bottom: 2em;
-    background-color: #098B8C;
+    background-color: $primary-color;
     color: #fff;
 }

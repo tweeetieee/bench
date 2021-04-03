@@ -1,0 +1,20 @@
+@import 'colors.scss';
+
+.transaction-table-header-row {
+    th {
+        padding: 8px;
+    }
+}
+
+.transaction-table-header-row {
+    th {
+        color: $primary-color;
+        font-size: 1.1em;
+    }
+    th:not(.sum) {
+        text-align: left;
+    }
+    th.sum {
+        text-align: right;
+    }
+}

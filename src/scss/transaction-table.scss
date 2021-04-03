@@ -1,11 +1,13 @@
+@import 'colors.scss';
+
 .transaction-table-wrapper {
     margin: 20px;
     padding-bottom: 20px;
 }
 
 .transaction-table {
-    background-color: white;
-    border: 1px solid #ccc;
+    background-color: $table-color;
+    border: 1px solid $border-color;
     width: 100%;
     padding: 10px;
 }

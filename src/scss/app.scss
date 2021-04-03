@@ -1,0 +1,22 @@
+@import 'colors.scss';
+@import 'title.scss';
+@import 'transaction-table.scss';
+@import 'transaction-table-header.scss';
+@import 'transaction-table-item.scss';
+@import 'transaction-loader.scss';
+@import 'error-message.scss';
+
+body {
+    margin: 0;
+    background-size: cover;
+    background-color: $background-color;
+    box-sizing: border-box;
+}
+
+body, html {
+    height: 100%;
+}
+
+.muted-text {
+    color: $muted-color;
+}

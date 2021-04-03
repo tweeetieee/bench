@@ -10,9 +10,12 @@ export default function TransactionTable(props) {
     const { formatAmount } = useContext(FormatterContext);
 
     function calculateTransactionSum() {
-        let sum = transactions.reduce(function(prev, cur) {
+        let sum = 0;
+        if (transactions) {
+            sum = transactions.reduce(function(prev, cur) {
                 return prev + parseFloat(cur.Amount);
             }, 0);
+        }
         return formatAmount(sum);
     }
     return (
