@@ -9,6 +9,7 @@ import '../css/app.css';
 export const FormatterContext = React.createContext();
 
 const BASE_URL = "https://resttest.bench.co/transactions/";
+const JSON_EXTENSION = ".json";
 
 function App() {
   const [transactions, setTransactions] = useState([]);
@@ -17,29 +18,13 @@ function App() {
 
   useEffect(() => {
     let pagesRequired = 1;
-    axios.get(BASE_URL + "1.json")
+    axios.get(BASE_URL + pagesRequired + JSON_EXTENSION)
     .then((response) => response.data)
     .then(data => {
+      // Currently pages 5+ returns 404 so pagesRequired is manually set to 4 so the table renders
       // pagesRequired = data.totalCount;
-      pagesRequired = 4;
-      console.log(pagesRequired);
-      let promises = [];
-      for (let i = 1; i <= pagesRequired; i++) {
-        promises.push(axios.get(BASE_URL + i + ".json"));
-      }
-      Promise.all(promises)
-      .then((responses) => {
-        let newTransactions = [];
-        responses.map((response)=> {
-          let currentTractions = response.data.transactions;
-          newTransactions = newTransactions.concat(currentTractions);
-        });
-        setTransactions(newTransactions);
-        setIsLoaded(true);
-      }).catch(error => {
-        setIsLoaded(true);
-        setHasError(true);
-      });
+      pagesRequired = 1;
+      retrieveTransactions(pagesRequired);
     })
     .catch((error) => {
       setIsLoaded(true);
@@ -47,9 +32,26 @@ function App() {
     })
   }, []);
 
-  const formatterContextValue = {
-    formatDate,
-    formatAmount
+  function retrieveTransactions(pagesRequired){
+    let promises = [];
+    for (let i = 1; i <= pagesRequired; i++) {
+      promises.push(axios.get(BASE_URL + i + JSON_EXTENSION));
+    }
+    Promise.all(promises)
+    .then((responses) => {
+      let newTransactions = [];
+      responses.map((response)=> {
+        if (response.data) {
+          let currentTractions = response.data.transactions;
+          newTransactions = newTransactions.concat(currentTractions);
+        }
+      });
+      setTransactions(newTransactions);
+      setIsLoaded(true);
+    }).catch(error => {
+      setIsLoaded(true);
+      setHasError(true);
+    });
   }
 
   function dateOrdinal(num) {
@@ -83,6 +85,12 @@ function App() {
     });
     return formatter.format(amount);
   }
+
+  const formatterContextValue = {
+    formatDate,
+    formatAmount
+  }
+
   return (
     <FormatterContext.Provider value={formatterContextValue} >
       <Title />

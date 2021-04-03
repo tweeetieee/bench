@@ -1,14 +1,14 @@
-import React, { useContext } from 'react'
-import { FormatterContext } from './App'
+import React, { useContext } from 'react';
+import { FormatterContext } from './App';
 
 export default function TransactionTableItem(props) {
-    const { formatDate, formatAmount } = useContext(FormatterContext)
     const {
         Date,
         Ledger,
         Amount,
         Company
-    } = props
+    } = props;
+    const { formatDate, formatAmount } = useContext(FormatterContext);
 
     return (
         <tr className="transaction-table-item-row">
