@@ -41,7 +41,7 @@ function App() {
     axios.all(requests)
     .then((responses) => {
       let newTransactions = [];
-      responses.map((response) => {
+      responses.forEach((response) => {
         if (response.data) {
           let currentTractions = response.data.transactions;
           newTransactions = newTransactions.concat(currentTractions);
