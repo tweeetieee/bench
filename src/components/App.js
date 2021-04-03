@@ -21,9 +21,9 @@ function App() {
     axios.get(BASE_URL + pagesRequired + JSON_EXTENSION)
     .then((response) => response.data)
     .then(data => {
-      // Currently pages 5+ returns 404 so pagesRequired is manually set to 4 so the table renders
+      // Currently page 5 and onwards returns 404 so pagesRequired is manually set to 4 so that the table renders
       // pagesRequired = data.totalCount;
-      pagesRequired = 1;
+      pagesRequired = 4;
       retrieveTransactions(pagesRequired);
     })
     .catch((error) => {
@@ -32,7 +32,7 @@ function App() {
     })
   }, []);
 
-  function retrieveTransactions(pagesRequired){
+  function retrieveTransactions(pagesRequired) {
     let promises = [];
     for (let i = 1; i <= pagesRequired; i++) {
       promises.push(axios.get(BASE_URL + i + JSON_EXTENSION));
@@ -66,7 +66,7 @@ function App() {
     }
   }
   
-  function formatDate(formattedDate){
+  function formatDate(formattedDate) {
     if (formattedDate) {
       const date = new Date(formattedDate);
       const month = date.toLocaleString('default', { month: 'short' } );
@@ -77,7 +77,7 @@ function App() {
     return "";
   }
 
-  function formatAmount(amount){
+  function formatAmount(amount) {
     amount = amount ? amount : 0;
     let formatter = new Intl.NumberFormat('en-US', {
         style: 'currency',
@@ -96,7 +96,7 @@ function App() {
       <Title />
       {isLoaded && !hasError
         ? <TransactionTable transactions={transactions} />
-        : (hasError? <ErrorMessage /> : <TransactionLoader /> )
+        : (hasError? <ErrorMessage /> : <TransactionLoader />)
       }
     </FormatterContext.Provider>
   );

@@ -9,7 +9,7 @@ export default function TransactionTable(props) {
     } = props;
     const { formatAmount } = useContext(FormatterContext);
 
-    function calculateTransactionSum(){
+    function calculateTransactionSum() {
         let sum = transactions.reduce(function(prev, cur) {
                 return prev + parseFloat(cur.Amount);
             }, 0);
