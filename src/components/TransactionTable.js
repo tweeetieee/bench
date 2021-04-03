@@ -20,11 +20,16 @@ export default function TransactionTable(props) {
             <table className="transaction-table">
                 <TransactionTableHeader transactionSum={calculateTransactionSum()}  /> 
                 <tbody>
-                    {transactions.map((transaction, index) => {
-                        return (
-                            <TransactionTableItem key={index} {...transaction} />
-                        )
-                    })}
+                    {transactions.length > 0
+                        ? (transactions.map((transaction, index) => {
+                            return (
+                                <TransactionTableItem key={index} {...transaction} />
+                            )
+                         }))
+                        : (<tr className="transaction-table-item-row">
+                            <td className="no-transactions" colSpan="4">There are currently no transactions</td>
+                          </tr>)
+                    }
                 </tbody>
             </table>
         </div>

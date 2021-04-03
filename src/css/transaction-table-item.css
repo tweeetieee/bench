@@ -2,12 +2,16 @@
     padding: 8px;
 }
 
-.transaction-table-item-row td:not(.amount) {
+.transaction-table-item-row td:not(.amount):not(.no-transactions) {
     text-align: left;
 }
 
 .transaction-table-item-row td.amount {
     text-align: right;
+}
+
+.transaction-table-item-row td.no-transactions {
+    text-align: center;
 }
 
 .transaction-table-item-row:hover,
