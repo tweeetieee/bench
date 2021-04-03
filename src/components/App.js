@@ -3,6 +3,7 @@ import Title from './Title';
 import TransactionTable from './TransactionTable';
 import TransactionLoader from './TransactionLoader';
 import ErrorMessage from './ErrorMessage';
+import axios from 'axios';
 import '../css/app.css';
 
 export const FormatterContext = React.createContext();
@@ -16,18 +17,34 @@ function App() {
 
   useEffect(() => {
     let pagesRequired = 1;
-    let currentPage = 1;
-    fetch(BASE_URL + currentPage + ".json")
-    .then(res => res.json())
-    .then((result) => {
-        console.log(result);
-        pagesRequired = result.totalCount;
-      },
-      (error) => {
+    axios.get(BASE_URL + "1.json")
+    .then((response) => response.data)
+    .then(data => {
+      // pagesRequired = data.totalCount;
+      pagesRequired = 4;
+      console.log(pagesRequired);
+      let promises = [];
+      for (let i = 1; i <= pagesRequired; i++) {
+        promises.push(axios.get(BASE_URL + i + ".json"));
+      }
+      Promise.all(promises)
+      .then((responses) => {
+        let newTransactions = [];
+        responses.map((response)=> {
+          let currentTractions = response.data.transactions;
+          newTransactions = newTransactions.concat(currentTractions);
+        });
+        setTransactions(newTransactions);
+        setIsLoaded(true);
+      }).catch(error => {
         setIsLoaded(true);
         setHasError(true);
-      }
-    )
+      });
+    })
+    .catch((error) => {
+      setIsLoaded(true);
+      setHasError(true);
+    })
   }, []);
 
   const formatterContextValue = {
@@ -51,7 +68,7 @@ function App() {
     if (formattedDate) {
       const date = new Date(formattedDate);
       const month = date.toLocaleString('default', { month: 'short' } );
-      const dayNum = date.getDay();
+      const dayNum = date.getDate();
       const year = date.getFullYear();
       return `${month} ${dateOrdinal(dayNum)}, ${year}`;
     }
