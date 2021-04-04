@@ -16,7 +16,6 @@
 }
 
 .transaction-table-item-row:hover,
-.transaction-table-item-row:hover .muted-text, 
-.transaction-table-item-row.hover .muted-text { 
+.transaction-table-item-row:hover .muted-text { 
     color: $primary-color;
 }

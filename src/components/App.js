@@ -16,6 +16,10 @@ function App() {
   const [transactions, setTransactions] = useState([]);
   const [isLoaded, setIsLoaded] = useState(false);
   const [hasError, setHasError] = useState(false);
+  const formatterContextValue = {
+    formatDate,
+    formatAmount
+  };
 
   useEffect(() => {
     let pagesRequired = MIN_NUM_PAGES;
@@ -84,11 +88,6 @@ function App() {
         currency: 'USD',
     });
     return formatter.format(amount);
-  }
-
-  const formatterContextValue = {
-    formatDate,
-    formatAmount
   }
 
   return (
